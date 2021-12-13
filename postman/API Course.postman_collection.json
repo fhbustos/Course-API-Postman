@@ -1,0 +1,249 @@
+{
+	"info": {
+		"_postman_id": "f63ef116-478a-48b7-982a-ed37f0ef88ad",
+		"name": "API Course",
+		"description": "Collecion de request para pruebas de acceso autorizado a la API Course",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Request Token",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "websecret",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "webapp",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "juan",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "scope",
+							"value": "read",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:9080/oauth/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9080",
+					"path": [
+						"oauth",
+						"token"
+					]
+				},
+				"description": "Request para obtener un token siguiendo el flujo grant password de Oauth2"
+			},
+			"response": []
+		},
+		{
+			"name": "Check Token",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "resourceserversecret",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "resourceserver",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "token",
+							"value": "9bbf1f4c-64a0-433c-b6c6-e920f908fd66",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:9080/oauth/check_token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9080",
+					"path": [
+						"oauth",
+						"check_token"
+					]
+				},
+				"description": "Check Token utilizando username y secret del Resource Server"
+			},
+			"response": []
+		},
+		{
+			"name": "List courses",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "9bbf1f4c-64a0-433c-b6c6-e920f908fd66",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9090/course",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"course"
+					]
+				},
+				"description": "Obtiene un listado de cursos."
+			},
+			"response": []
+		},
+		{
+			"name": "Get one course",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "b172e561-1f4d-4270-8b80-0d2e86e91406",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9090/course/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"course",
+						"3"
+					]
+				},
+				"description": "Muestra la información de un curso específico."
+			},
+			"response": []
+		},
+		{
+			"name": "Add new course",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "da846548-95c4-45b8-9a51-c9ed65846743",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Seguridad Inalámbrica y Redes\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9090/course/8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"course",
+						"8"
+					]
+				},
+				"description": "Agrega un nuevo curso. Si el id del curso ya existe se modifica caso contrario se genera uno nuevo."
+			},
+			"response": []
+		},
+		{
+			"name": "Delete course",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "da846548-95c4-45b8-9a51-c9ed65846743",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9090/course/7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"course",
+						"7"
+					]
+				},
+				"description": "Borra un curso si existe el mismo."
+			},
+			"response": []
+		}
+	]
+}
